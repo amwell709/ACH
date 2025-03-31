@@ -1,0 +1,613 @@
+{
+  "cookies": [
+    {
+      "name": "_provider_hub_session",
+      "value": "Aoc5OEaf7beRhR%2B1fA5GK94EkI4LJSxridk9s%2B4opiFVg1IumCGMGtslXA3Jbr4DZgv5kfTUvWKKJ3xQ0dOV%2BM6h4ff1AaGMa1PS5Wp9uulNiImHzFH0I7Qx1G%2B8tvJ4QjIZugd2Y%2BjzuVUra6gz88e1625aHDsQprO9Jnkk%2BZmVtrGeZZmJg1IFeMCz9j3LqgzbecwvyGIyq7bHFUkgiQorWD1MzkaP89DHlHiZJV03UKC7Hp9VLfOeJC%2BU%2FuCiQwdl3Pvh8D05axs3Eb2ydaTZkSchKWfAYp48XYM%3D--pi6LBEI4TW2PrM79--BHscsD9TbRSJmnd5gKfNHg%3D%3D",
+      "domain": "partnersuccesshub-stg.autodesk.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "OPTOUTMULTI_GEO",
+      "value": "US",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "OPTOUTMULTI_SYNC_READY",
+      "value": "true",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "ADSK_GDPR_OPT_LENGTH",
+      "value": "Sun%2C%2022%20Mar%202026%2018%3A11%3A39%20GMT",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1774203099,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "OPTOUTMULTI",
+      "value": "0%3A0%7Cc1%3A0%7Cc7%3A0%7Cc8%3A0%7Cc9%3A0",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1774203099,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "OPTOUTMULTI_TYPE",
+      "value": "P",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1774203099,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "OPTOUTMULTI_REF",
+      "value": "1e6b9272-a1b3-a103-ee39-885e730876a9",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1777227099.771537,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "wap_fs_data",
+      "value": "false",
+      "domain": "partnersuccesshub-stg.autodesk.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "utag_main",
+      "value": "v_id:0195bf0dad5a001426113d546d2605073002b06b007e8$_sn:1$_ss:1$_st:1742668899483$ses_id:1742667099483%3Bexp-session$_pn:1%3Bexp-session$vapi_domain:autodesk.com$optoutbackup:undefined%3Bexp-1750443100179",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1774203100,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "demdex",
+      "value": "00373322288523054781064392361341008698",
+      "domain": ".demdex.net",
+      "path": "/",
+      "expires": 1758219100.379638,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "AMCVS_6DC7655351E5696B0A490D44%40AdobeOrg",
+      "value": "1",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "check",
+      "value": "true",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "adsk_s_gpv",
+      "value": "adsk%3Apartnersuccesshub-stg%3Ahome",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1742668900,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "s_ips",
+      "value": "720",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "s_tp",
+      "value": "1426",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "s_ppv",
+      "value": "adsk%253Apartnersuccesshub-stg%253Ahome%2C50%2C50%2C50%2C720%2C1%2C1",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "s_ecid",
+      "value": "MCMID%7C07121923004817835840550544575803478620",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1777227100.572679,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "AMCV_6DC7655351E5696B0A490D44%40AdobeOrg",
+      "value": "1585540135%7CMCIDTS%7C20170%7CMCMID%7C07121923004817835840550544575803478620%7CMCAAMLH-1743271900%7C9%7CMCAAMB-1743271900%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1742674300s%7CNONE%7CMCAID%7CNONE%7CvVersion%7C4.4.0",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1777227100.574403,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "s_dlv",
+      "value": "1742667100646",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1777227100.646419,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "s_dlv_s",
+      "value": "First%20Visit",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1742668900,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "s_vnc365",
+      "value": "1774203100668%26vn%3D1",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1774249199,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "s_ivc",
+      "value": "true",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1742668900,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_an_uid",
+      "value": "-1",
+      "domain": "partnersuccesshub-stg.autodesk.com",
+      "path": "/",
+      "expires": 1743271900,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_gd_visitor",
+      "value": "46d3e4db-cf7b-464b-82be-e7ec032d01a5",
+      "domain": "partnersuccesshub-stg.autodesk.com",
+      "path": "/",
+      "expires": 1777227100.683262,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_gd_session",
+      "value": "ab23bd4a-b21b-4ffa-8869-f9b1bc27975d",
+      "domain": "partnersuccesshub-stg.autodesk.com",
+      "path": "/",
+      "expires": 1742681500,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_gid",
+      "value": "GA1.2.1034528428.1742667101",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1742753501,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_uetsid",
+      "value": "1a8f7570074911f0955fb5655c44033f",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1742753500,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_uetvid",
+      "value": "1a8faba0074911f0975593f60d227b05",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1776363100,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "MUID",
+      "value": "0E98BDB321B662C12490A804204E63C9",
+      "domain": ".bing.com",
+      "path": "/",
+      "expires": 1776363102.379624,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".bat.bing.com",
+      "path": "/",
+      "expires": 1743271900.839888,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ga_Y67Z68XWN7",
+      "value": "GS1.1.1742667101.1.0.1742667101.0.0.0",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1777227101.274491,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.1e6b9272-a1b3-a103-ee39-885e730876a9",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1777227101.402478,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "cjConsent",
+      "value": "MHxOfDB8Tnww",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1776795101,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "cjUser",
+      "value": "42aff62e-3ebb-4a2b-b8ff-78604ad8668c",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1776795101,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_gcl_au",
+      "value": "1.1.1408422091.1742667101",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1750443101,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "CLID",
+      "value": "6ee63bbe12d54bb79b02237e307b66c1.20250322.20260322",
+      "domain": "www.clarity.ms",
+      "path": "/",
+      "expires": 1774203101.360737,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_fbp",
+      "value": "fb.1.1742667101365.480580815664429993",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1750443101,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_WWJ4KLFHYZ",
+      "value": "GS1.1.1742667101.1.1.1742667101.0.0.0",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1777227101.408449,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_sp_ses.1b21",
+      "value": "*",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1742668901,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_sp_id.1b21",
+      "value": "cfaf9088-f084-42ac-a25e-95c27ab43e9d.1742667101.1.1742667101..6a7386d2-eb3c-4957-a4d7-64684d3465e3..32c0d611-506c-4adb-a5f6-ec8dfe4d403e.1742667101497.1",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1777227101.497659,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_clck",
+      "value": "1atl2uu%7C2%7Cfuf%7C0%7C1907",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1774203101,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "ar_debug",
+      "value": "1",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1745259101.905809,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "IDE",
+      "value": "AHWqTUn_QeNoSwB-YmNLG80mtiyJ4KqMoLBu3H8LTi_I43ziPhA3hUuThi5Wlali0WA",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1777227101.714753,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "receive-cookie-deprecation",
+      "value": "1",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1758219101.905944,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "A3",
+      "value": "d=AQABBF393mcCEM6ModRrINRrqxm4iNEJ3MUFEgEBAQFO4GfoZ9xW0iMA_eMAAA&S=AQAAAjhKXtIvK19uzjI3OG1yfao",
+      "domain": ".yahoo.com",
+      "path": "/",
+      "expires": 1774224701.931853,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "AWSALB",
+      "value": "ejxDJHo8T0r2A4oMD5RGy/9LKm1yQjEuEqZKAAjNd/kteyukmWVfFFb90MjhhmSP3i2d7g9U5NgecRngN/6lJfrj+dFK8h+MHXBNz7HHtgH4IA99f3tvRk65jaJa",
+      "domain": "partnersuccesshub-stg.autodesk.com",
+      "path": "/",
+      "expires": 1743271902.134285,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "AWSALBCORS",
+      "value": "ejxDJHo8T0r2A4oMD5RGy/9LKm1yQjEuEqZKAAjNd/kteyukmWVfFFb90MjhhmSP3i2d7g9U5NgecRngN/6lJfrj+dFK8h+MHXBNz7HHtgH4IA99f3tvRk65jaJa",
+      "domain": "partnersuccesshub-stg.autodesk.com",
+      "path": "/",
+      "expires": 1743271902.13445,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_clsk",
+      "value": "1b3pma4%7C1742667102223%7C1%7C0%7Cq.clarity.ms%2Fcollect",
+      "domain": ".autodesk.com",
+      "path": "/",
+      "expires": 1742753502,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1743271902.379779,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SRM_B",
+      "value": "0E98BDB321B662C12490A804204E63C9",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1776363102.379827,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SM",
+      "value": "C",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MUID",
+      "value": "0E98BDB321B662C12490A804204E63C9",
+      "domain": ".clarity.ms",
+      "path": "/",
+      "expires": 1776363102.505634,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": 1743271902.50567,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "ANONCHK",
+      "value": "0",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": 1742667702.505688,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "usi_return_visitor",
+      "value": "Sat%20Mar%2022%202025%2011%3A11%3A44%20GMT-0700%20(Pacific%20Daylight%20Time)",
+      "domain": ".partnersuccesshub-stg.autodesk.com",
+      "path": "/",
+      "expires": 1777227104.246722,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://partnersuccesshub-stg.autodesk.com",
+      "localStorage": [
+        {
+          "name": "usi_return_visitor",
+          "value": "{\"value\":\"2025-03-22T18:11:44.245Z\",\"usi_expires\":2058027104246}"
+        },
+        {
+          "name": "lastExternalReferrerTime",
+          "value": "1742667101362"
+        },
+        {
+          "name": "_uetvid_exp",
+          "value": "Thu, 16 Apr 2026 18:11:40 GMT"
+        },
+        {
+          "name": "_uetsid_exp",
+          "value": "Sun, 23 Mar 2025 18:11:40 GMT"
+        },
+        {
+          "name": "OPTOUTMULTI_GEO",
+          "value": "US"
+        },
+        {
+          "name": "_uetvid",
+          "value": "1a8faba0074911f0975593f60d227b05"
+        },
+        {
+          "name": "lastExternalReferrer",
+          "value": "empty"
+        },
+        {
+          "name": "usi_session_data",
+          "value": "{\"value\":\"{\\\"ip\\\":\\\"71.238.22.86\\\",\\\"country\\\":\\\"us\\\"}\",\"usi_expires\":1742753504241}"
+        },
+        {
+          "name": "usi_si",
+          "value": "{\"value\":\"77u4vp_1742667104\",\"usi_expires\":1742753504248}"
+        },
+        {
+          "name": "snowplowOutQueue_snowplowece_snowplowece_post2",
+          "value": "[]"
+        },
+        {
+          "name": "_uetsid",
+          "value": "1a8f7570074911f0955fb5655c44033f"
+        },
+        {
+          "name": "_6senseCompanyDetails",
+          "value": "{\"company\":{\"domain\":\"\",\"name\":\"\",\"region\":\"\",\"country\":\"United States\",\"state\":\"Oregon\",\"city\":\"Portland\",\"industry\":\"\",\"companyId\":\"\",\"country_iso_code\":\"US\",\"address\":\"\",\"zip\":\"\",\"phone\":\"\",\"employee_range\":\"\",\"revenue_range\":\"\",\"employee_count\":\"\",\"annual_revenue\":\"\",\"is_blacklisted\":false,\"state_code\":\"\",\"is_6qa\":false,\"geoIP_country\":\"United States\",\"geoIP_state\":\"Oregon\",\"geoIP_city\":\"Portland\",\"company_match\":\"Non-actionable Match\",\"additional_comment\":\"There is no valid B2B use case as this was matched to something other than a company name/domain (i.e. bot, host, noisy signal, etc.)\",\"sic\":\"\",\"sic_description\":\"\",\"naics\":\"\",\"naics_description\":\"\",\"industry_v2\":[]},\"scores\":[],\"segments\":{\"ids\":[],\"names\":[],\"list\":[]},\"confidence\":\"NA\"}"
+        },
+        {
+          "name": "snowplowOutQueue_snowplowece_snowplowece_post2.expires",
+          "value": "1805739102219"
+        }
+      ]
+    }
+  ]
+}
