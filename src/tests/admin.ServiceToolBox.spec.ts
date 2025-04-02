@@ -3,7 +3,7 @@ import ServiceToolBox from "../pages/ServiceToolBox";
 
 var _service;
 
-test.describe('login test', ()=> {
+test.describe('Service Hub', ()=> {
 
     test.beforeEach(async ({page}) => {
         _service = new ServiceToolBox(page);
@@ -14,7 +14,7 @@ test.describe('login test', ()=> {
         await page.close();
     })
           
-     test('Service Hub - page', async ({ page }) => {
+     test('Service Hub page', async ({ page }) => {
          await _service.clickServiceToolBoxTab();
          await _service.validationServiceToolBox();
       });

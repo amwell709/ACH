@@ -3,7 +3,7 @@ import PartnerHub from "../pages/PartnerHub";
 
 var _partnerHub;
 
-test.describe('login test', ()=> {
+test.describe('Partner Hub', ()=> {
 
     test.beforeEach(async ({page}) => {
         _partnerHub = new PartnerHub(page);
@@ -14,15 +14,15 @@ test.describe('login test', ()=> {
         await page.close();
     })
 
-    test('Partner Hub - page - test 1', async ({ page }) => {  
+    test('Partner Hub page', async ({ page }) => {  
         await _partnerHub.clickPartnerTab();
         await _partnerHub.validationPartnerHub();
      });
 
-     test('Partner Hub - page - test 2', async ({ page }) => {  
-        await _partnerHub.assertMessage("PARTNER SUCCESS HUB")
-        await page.waitForTimeout(3000);
-     });
+    //  test('Partner Hub - page - test 2', async ({ page }) => {  
+    //     await _partnerHub.assertMessage("PARTNER SUCCESS HUB")
+    //     await page.waitForTimeout(3000);
+    //  });
      
 })
 

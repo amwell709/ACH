@@ -4,7 +4,7 @@ import CustomerToolBox from "../pages/CustomerToolBox";
 
 var _customer;
 
-test.describe('login test', ()=> {
+test.describe('Customer success Toolbox', ()=> {
 
     test.beforeEach(async ({page}) => {
         _customer = new CustomerToolBox(page);
@@ -15,7 +15,7 @@ test.describe('login test', ()=> {
         await page.close();
     })
     
-     test('Customer success Toolbox - page', async ({ page }) => {
+     test('Toolbox page', async ({ page }) => {
          await _customer.clickCustomerTab();
          await _customer.validationCustomerToolBox();
      })

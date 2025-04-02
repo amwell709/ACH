@@ -25,13 +25,27 @@ export default class Accreditation {
 
     async clickSkillTab() {       
         await this.page.getByRole('link', { name: 'Skill', exact: true }).click();   
-    }    
+    }   
+
     async clickTechnicalCapabilityTab() {       
         await this.page.getByRole('link', { name: 'Technical Capability', exact: true }).click();   
+    }   
+
+    async clickOptimizeReadMore() {       
+        await this.page.getByRole('link', { name: 'Optimize Accelerator Accreditation Accelerator Accreditation highlights the' }).click()
+    }  
+    async clickSkillReadMore() {       
+        await this.page.getByRole('link', { name: 'Skill Accreditation Skill' }).click()
+    }    
+    async clickTechnicalCapabilityReadMore() {       
+        await this.page.getByRole('link', { name: 'Technical Capability Accreditation Technical Capability Accreditation' }).click()
     }    
 
     async clickPartnerDefinedTab() {       
-        await this.page.getByRole('link', { name: 'Partner Defined', exact: true }).click();   
+        await this.page.getByRole('link', { name: 'Partner Defined', exact: true }).click();
+    }    
+    async clickPartnerDefinedReadMore() {       
+        await this.page.getByRole('link', { name: 'Partner Defined Accreditation' }).click()
     }    
     
     async clickMyAccreditationsTab() {       
@@ -54,27 +68,60 @@ export default class Accreditation {
         await expect(this.page.getByRole('heading', { name: 'My Accreditations', exact: true })).toBeVisible();
     }
 
-
-
-
-    // await page.getByRole('link', { name: 'Skill' }).click();
-    // await expect(page.getByRole('heading', { name: 'Skill Accreditation', exact: true })).toBeVisible();
-    // await page.getByRole('link', { name: 'Technical Capability' }).click();
-    // await expect(page.getByRole('heading', { name: 'Technical Capability Accreditation', exact: true })).toBeVisible();
-    // await page.getByRole('link', { name: 'Partner Defined' }).click();
-    // await expect(page.getByRole('heading', { name: 'Partner Defined Service Accreditation', exact: true })).toBeVisible();
-    // await page.getByRole('link', { name: 'My Accreditations' }).click();
-    // await expect(page.getByRole('heading', { name: 'My Accreditations' })).toBeVisible();
-
-    async getMsg() {    
-        
-        const _msg = (await this.page.getByRole('heading', { name: 'PARTNER SUCCESS HUB' }).innerText());
-        await console.log(_msg)
-        return _msg;
+    async clickPartnerDefineService() {       
+        await this.page.locator('section').filter({ hasText: 'How Partner Defined Service' }).getByRole('link').click();
     }
 
-    async assertMessage (passMessage) {
-        const message = await this.getMsg();
-        expect(message).toContain(passMessage);
+    async fillOutServiceDefinitionForm(num) {    
+                
+        const serviceName = Math.random().toString(36).substring(7);
+        await this.page.getByRole('textbox', { name: 'This should be a customer facing title that embodies the service that it' }).fill(serviceName);
+        await this.page.getByRole('textbox', { name: 'This should be a customer facing description that will be published to your' }).fill('something I can do');
+        await this.page.getByRole('spinbutton', { name: 'Provide an estimation of how' }).click();        
+        await this.page.getByRole('spinbutton', { name: 'Provide an estimation of how' }).fill(num);
+        await this.page.locator('label').filter({ hasText: 'Architecture, Engineering &' }).locator('div').nth(3).click();
+        await this.page.getByRole('listitem').filter({ hasText: 'Business Growth Sample' }).locator('div').nth(3).click();
+        await this.page.getByRole('listitem').filter({ hasText: 'Accelerate Creative Review' }).locator('div').nth(3).click();
+        await this.page.locator('label').filter({ hasText: 'Animation and Rigging' }).locator('div').nth(3).click();
+        await this.page.getByRole('listitem').filter({ hasText: /^3ds Max$/ }).locator('div').nth(3).click();
+        await this.page.getByRole('listitem').filter({ hasText: /^BIM$/ }).locator('div').nth(3).click();
+        await this.page.getByRole('textbox', { name: 'Please provide additional' }).click();
+        await this.page.getByRole('textbox', { name: 'Please provide additional' }).fill('qa test definition details');
     }
+
+    async missedRequiredInfoServiceDefinitionForm(num) {    
+                
+        const serviceName = Math.random().toString(36).substring(7);
+        await this.page.getByRole('textbox', { name: 'This should be a customer facing title that embodies the service that it' }).fill(serviceName);
+        await this.page.getByRole('textbox', { name: 'This should be a customer facing description that will be published to your' }).fill('short description here');    
+        await this.page.getByRole('spinbutton', { name: 'Provide an estimation of how' }).fill(num);
+        await this.page.getByRole('textbox', { name: 'Please provide additional' }).fill('qa test definition details');
+    }
+
+    // verify error message
+    async validationPartnerDefineServiceForm() {       
+        await expect(this.page.getByText('There was an issue creating')).toBeVisible();
+        await expect(this.page.getByText('Must select at least one Industry')).toBeVisible();
+        await expect(this.page.getByText('Must select at least one Value Driver')).toBeVisible();
+        await expect(this.page.getByText('Must select at least one Capabilities')).toBeVisible();
+        await expect(this.page.getByText('Must select at least one Products')).toBeVisible();
+        await expect(this.page.getByText('Must select at least one Services')).toBeVisible();
+    }
+
+    async submitPartnerDefineService() {       
+        await this.page.getByRole('button', { name: 'Submit Service ' }).click();
+    }
+
+    async validationPartnerDefineService() {       
+        await expect(this.page.getByText('Service Definition was')).toBeVisible();
+    }
+
+    async validateFormRequiredfields(popupMsg) {       
+        // validate service name field popup message
+        const ServiceName = this.page.locator('div').filter({ hasText: /^popupMsg$/ }); // Adjust selector
+        await expect(ServiceName).toBeVisible()
+    }
+    
+
+
 }

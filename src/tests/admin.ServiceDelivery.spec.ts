@@ -1,68 +1,84 @@
 import { test, expect } from '@playwright/test';
 import ServiceDelivery from "../pages/ServiceDelivery";
-import CommonActions from '../utils/CommonActions';
+import GenRandom from '../utils/GenRandom';
 
 var _serviceDelivery;
-var _actions;
-test.describe('login test', ()=> {
+var _gen;
+test.describe('Submit Delivery', ()=> {
 
     test.beforeEach(async ({page}) => {
         _serviceDelivery = new ServiceDelivery(page);
-        _actions = new CommonActions(page)
+        _gen = new GenRandom()
+
         await page.goto(process.env.urlAdmin!);   
         await _serviceDelivery.clickServiceDeliveryTab();
-        //await _serviceDelivery.clickSubmitDeliveryTab();
-        //await _serviceDelivery.validationSubmitDelivery();
     } )
 
     test.afterEach (async ({page}) => {
         await page.close();
     })
           
-    test('Submit Delivery - Overview page', async ({ page }) => {
+    test('Overview page', async ({ page }) => {
         await _serviceDelivery.validationServiceDeliveryOverview();
      });
 
-     test('Submit Delivery - Delivery page', async ({ page }) => {
+     test('Delivery page', async ({ page }) => {
         await _serviceDelivery.clickMyDeliveryTab();
         await _serviceDelivery.validationMyDeliveries();
      });
 
 
-    test('Submit Delivery - Optimize', async ({ page }) => {
+    test('Select Optimize type', async ({ page }) => {
 
         await _serviceDelivery.clickSubmitDeliveryTab();
         await _serviceDelivery.validationSubmitDelivery();
-        const customerInfo = Math.random().toString(36).substring(7);
+        const customerInfo = await(_gen.getRandomName());
         await _serviceDelivery.customerName(customerInfo);
         await _serviceDelivery.selectAcceleratorType('Optimize')
-        await _serviceDelivery.Submition();
+        await _serviceDelivery.Submission();
         await _serviceDelivery.validationCompleteSubmition(customerInfo)
      });
    
-    test('Submit Delivery - Adopt', async ({ page }) => {
+    test('Select Adopt type', async ({ page }) => {
 
         await _serviceDelivery.clickSubmitDeliveryTab();
         await _serviceDelivery.validationSubmitDelivery();
-        const customerInfo = Math.random().toString(36).substring(7);
+        const customerInfo = await(_gen.getRandomName());
         await _serviceDelivery.customerName(customerInfo);
         await _serviceDelivery.selectAcceleratorType('Adopt')
-        await _serviceDelivery.Submition();
+        await _serviceDelivery.Submission();
         await _serviceDelivery.validationCompleteSubmition(customerInfo)
 
      });
 
-     test('Submit Delivery - Partner defined', async ({ page }) => {
+     test('Select Partner defined type', async ({ page }) => {
 
         await _serviceDelivery.clickSubmitDeliveryTab();
         await _serviceDelivery.validationSubmitDelivery();
-        const customerInfo = Math.random().toString(36).substring(7);
+        const customerInfo = await(_gen.getRandomName());
         await _serviceDelivery.customerName(customerInfo);
         await _serviceDelivery.selectAcceleratorType('Partner defined')
-        await _serviceDelivery.partnerDefinedSubmition();
+        await _serviceDelivery.Submission();
         await _serviceDelivery.validationCompleteSubmition(customerInfo)
 
      });
+
+
+     // this test is to get value from a dropdown
+//      test('Submit Delivery - Optimize', async ({ page }) => {
+
+//         await _serviceDelivery.clickSubmitDeliveryTab();
+//         await _serviceDelivery.validationSubmitDelivery();
+//         // await page.getByRole('link', { name: 'Service Delivery', exact: true }).click();
+//         // await page.getByRole('link', { name: 'Submit a Delivery', exact: true }).click();
+//         // await page.getByRole('textbox', { name: 'What is the name of the' }).click();
+//         // await page.getByRole('textbox', { name: 'What is the name of the' }).fill('test');
+//         // await page.getByText('Adopt', { exact: true }).click();
+//         await page.locator('#select2-accelerator_input-container').first().dblclick()
+//         await page.locator('#select2-accelerator_input-container').click();
+//         const txt = page.locator('#select2-accelerator_input-container').first().innerHTML()
+//         console.log(txt)
+//   });
 
     
 })
