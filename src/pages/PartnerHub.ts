@@ -1,5 +1,4 @@
 import {Page, expect} from "@playwright/test";
-import CommonActions from "../utils/CommonActions";
 
 export default class PartnerHub {
     
@@ -15,7 +14,8 @@ export default class PartnerHub {
     }
 
      async validationPartnerHub() {       
-        expect(this.page.getByRole('heading', { name: 'Partner Success Hub' })).toBeVisible();
+        //expect(this.page.getByRole('heading', { name: 'Partner Success Hub' })).toBeVisible();
+        await expect(this. page.getByRole('heading', { name: 'Partner Success Hub' })).toBeVisible();
     }
 
     async getMsg() {    

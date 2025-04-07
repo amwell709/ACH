@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 import ServiceToolBox from "../pages/ServiceToolBox";
 
-var _service;
+//var _service;
 
 test.describe('Service Hub', ()=> {
 
     test.beforeEach(async ({page}) => {
-        _service = new ServiceToolBox(page);
+       // _service = new ServiceToolBox(page);
         await page.goto(process.env.urlAdmin!);  
     } )
 
@@ -15,6 +15,7 @@ test.describe('Service Hub', ()=> {
     })
           
      test('Service Hub page', async ({ page }) => {
+        var _service = new ServiceToolBox(page);
          await _service.clickServiceToolBoxTab();
          await _service.validationServiceToolBox();
       });

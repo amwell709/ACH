@@ -1,5 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
+import GenRandom from './src/utils/GenRandom';
 
+// create report folder for each test run
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const reportFolder = path.join(__dirname, `playwright-reports/report-${timestamp}`);
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -22,7 +26,9 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  //reporter: 'html',
+  reporter: [['html', { outputFolder: reportFolder }]],
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     launchOptions: {
@@ -56,12 +62,18 @@ export default defineConfig({
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { 
+        //...devices['Desktop Firefox']  
+        viewport: null},
+      
     },
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: { 
+        //...devices['Desktop Safari']
+        viewport: null
+       },
     },
 
     /* Test against mobile viewports. */

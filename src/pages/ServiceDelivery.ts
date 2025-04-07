@@ -13,7 +13,7 @@ export default class ServiceDelivery {
     }
 
     async validationServiceDelivery() {       
-        expect(this.page.getByRole('heading', { name: 'Service Delivery' })).toBeVisible();
+        await expect(this.page.getByRole('heading', { name: 'Service Delivery' })).toBeVisible();
     }
 
     async validationServiceDeliveryOverview() {       
@@ -48,9 +48,12 @@ export default class ServiceDelivery {
     // fill out information and submit
     async Submission() {          
         await this.page.locator('#select2-accelerator_input-container').click();
-        await this.page.getByRole('option', { name: '3D Coordination Foundation (Buildings)' }).click();      
+        // enter 3D text to match the type of accelerator to delivery
+        await this.page.keyboard.insertText('3D')
+        await this.page.keyboard.press('Enter')
         await this.page.getByRole('textbox', { name: 'What date was the Accelerator' }).click()
-        await this.page.getByRole('cell', { name: '1' }).nth(1).click();
+        // press enter to select current date on the calendar
+        await this.page.keyboard.press('Enter')
         await this.page.locator('label').filter({ hasText: 'By clicking the button below' }).click()
         await this.page.getByRole('button', { name: 'Submit Delivery ' }).click();
         await expect(this.page.getByText('Your delivery submission has')).toBeVisible();
@@ -62,22 +65,5 @@ export default class ServiceDelivery {
         await expect(this.page.getByRole('heading', { name: 'Deliveries Feedback Summary' })).toBeVisible();
         await expect(this.page.getByRole('cell', { name: customerInfo })).toBeVisible();
     }
-
-    // to get dynamic dropdown value. 
-    // async Submission() {          
-    //     await this.page.locator('#select2-accelerator_input-container').click();
-    //     await this.page.getByRole('option', { name: '3D Coordination Foundation (Buildings)' }).click();        
-    //     // To Do: change to select index value.
-    //     // await this.page.locator('span#select2-accelerator_input-container').click();
-    //     // await this.page.selectOption('span#select2-accelerator_input-container', {index: 2});
-    //     // await this.page.locator('span#select2-accelerator_input-container').selectOption('2');   
-    //     await this.page.getByRole('textbox', { name: 'What date was the Accelerator' }).click()
-    //     await this.page.getByRole('cell', { name: '1' }).nth(1).click();
-    //     await this.page.locator('label').filter({ hasText: 'By clicking the button below' }).click()
-    //     await this.page.getByRole('button', { name: 'Submit Delivery ' }).click();
-    //     await expect(this.page.getByText('Your delivery submission has')).toBeVisible();
-    //     await this.page.getByRole('button', { name: 'Copy to Clipboard' }).click();
-    //     await this.page.getByRole('button', { name: 'Agree & Continue ' }).click();    
-    // }
 
 }

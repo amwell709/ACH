@@ -23,6 +23,5 @@ test.describe('Partner Hub', ()=> {
     //     await _partnerHub.assertMessage("PARTNER SUCCESS HUB")
     //     await page.waitForTimeout(3000);
     //  });
-     
 })
 

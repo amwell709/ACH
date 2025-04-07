@@ -9,7 +9,7 @@ export default class CustomerToolBox {
     }
 
     async validationCustomerToolBox() {       
-        expect(this.page.getByRole('heading', { name: 'Customer Success Toolbox' })).toBeVisible();
+        await expect(this.page.getByRole('heading', { name: 'Customer Success Toolbox' })).toBeVisible();
     }
 
 }

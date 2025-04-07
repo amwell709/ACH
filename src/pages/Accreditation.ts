@@ -1,9 +1,10 @@
 import {Page, expect} from "@playwright/test";
+import { faker } from '@faker-js/faker';
 
 export default class Accreditation {
 
     constructor (private page: Page) {
-        this.page = page;
+        this.page = page;    
 
     }          
 
@@ -16,7 +17,7 @@ export default class Accreditation {
     }
 
     async validationAccreditationOverView() {       
-        expect(this.page.getByRole('heading', { name: 'Accreditations Overview' })).toBeVisible();
+        await expect(this.page.getByRole('heading', { name: 'Accreditations Overview' })).toBeVisible();
     }
 
     async clickOptimizeTab() {       
@@ -74,9 +75,12 @@ export default class Accreditation {
 
     async fillOutServiceDefinitionForm(num) {    
                 
-        const serviceName = Math.random().toString(36).substring(7);
+        //const serviceName = Math.random().toString(36).substring(7);
+        const serviceName = faker.commerce.productName()
+        const serviceDescription = faker.commerce.productDescription()
+        
         await this.page.getByRole('textbox', { name: 'This should be a customer facing title that embodies the service that it' }).fill(serviceName);
-        await this.page.getByRole('textbox', { name: 'This should be a customer facing description that will be published to your' }).fill('something I can do');
+        await this.page.getByRole('textbox', { name: 'This should be a customer facing description that will be published to your' }).fill(serviceDescription);
         await this.page.getByRole('spinbutton', { name: 'Provide an estimation of how' }).click();        
         await this.page.getByRole('spinbutton', { name: 'Provide an estimation of how' }).fill(num);
         await this.page.locator('label').filter({ hasText: 'Architecture, Engineering &' }).locator('div').nth(3).click();
@@ -91,7 +95,8 @@ export default class Accreditation {
 
     async missedRequiredInfoServiceDefinitionForm(num) {    
                 
-        const serviceName = Math.random().toString(36).substring(7);
+        //const serviceName = Math.random().toString(36).substring(7);
+        const serviceName = faker.commerce.productName()
         await this.page.getByRole('textbox', { name: 'This should be a customer facing title that embodies the service that it' }).fill(serviceName);
         await this.page.getByRole('textbox', { name: 'This should be a customer facing description that will be published to your' }).fill('short description here');    
         await this.page.getByRole('spinbutton', { name: 'Provide an estimation of how' }).fill(num);

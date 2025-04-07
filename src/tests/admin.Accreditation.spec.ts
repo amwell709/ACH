@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import Accreditation from "../pages/Accreditation";
 import GenRandom from '../utils/GenRandom';
+import { faker, Faker } from '@faker-js/faker';
 
 var _accreditation;
 var _gen;
@@ -26,7 +27,7 @@ test.describe('Accreditation', () => {
 
 
     // Description: click the Optimize Accelerator title, validate launch to the correct page
-    test('Optimize Accelerator page', async ({ page }) => {
+    test('Optimize Accelerator page', async ({ page }) => { 
         await _accreditation.clickOptimizeTab()
         await _accreditation.validationAccreditationOpimize()
     });
@@ -81,7 +82,7 @@ test.describe('Accreditation', () => {
     });
 
     // Description: to validate successful submit defined service accreditation
-    test.only('Partner service definition ', async ({ page }) => {
+    test('Partner service definition ', async ({ page }) => {
         await _accreditation.clickPartnerDefinedTab();
         await _accreditation.validationAccreditationPartnerDefine()
         await _accreditation.clickPartnerDefineService()

@@ -1,12 +1,16 @@
 import {Page} from "@playwright/test";
-import HomePage from "./HomePage";
 
-export default class checkURL {
+export default class CheckLinks {
 
     async links(page) {
         const links = await page.$$eval('a', anchors => anchors.map(a => a.href));
   
         console.log(`Found ${links.length} links.`);
+        for (const link of links) {
+          console.log(link)
+        }  
+      
+        console.log("======== Begin validation =======")
       
         for (const link of links) {
             try {
