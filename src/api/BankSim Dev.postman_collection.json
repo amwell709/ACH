@@ -1,0 +1,352 @@
+{
+	"info": {
+		"_postman_id": "958c0216-366d-4c63-909e-d6ab3a4fb96a",
+		"name": "BankSim Dev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33759947",
+		"_collection_link": "https://nvoicepay.postman.co/workspace/Client-Solutions~028dec63-921a-49ca-acb5-1bf3e6734ae3/collection/33759947-958c0216-366d-4c63-909e-d6ab3a4fb96a?action=share&source=collection_link&creator=33759947"
+	},
+	"item": [
+		{
+			"name": "queue 820",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert that the response status is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"paymentGuid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"transactionType\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev-api-banksimulator.nvoicepay.com/api/v1/payment/queue/820",
+					"protocol": "https",
+					"host": [
+						"dev-api-banksimulator",
+						"nvoicepay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payment",
+						"queue",
+						"820"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "queue 821",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"paymentGuid\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"failureReasonCode\": \"string\",\r\n  \"transactionType\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev-api-banksimulator.nvoicepay.com/api/v1/payment/queue/821",
+					"protocol": "https",
+					"host": [
+						"dev-api-banksimulator",
+						"nvoicepay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payment",
+						"queue",
+						"821"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostPaymentNotificationChange",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert that the response status is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Extract the 'enrollment token' from the response\r",
+							"var enrollmentUrl = JSON.parse(responseBody).enrollmentUrl;\r",
+							"var token = enrollmentUrl.split(\"=\");\r",
+							"pm.environment.set(\"enrollmentToken\",token[1]);\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"paymentGuid\": \"48F09896-5C40-485F-B6C1-CB6F0AA89509\",\r\n  \"reasonCode\": \"R01\",\r\n  \"correctionValue\": \"one\",\r\n  \"transactionType\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dev-api-banksimulator.nvoicepay.com/api/v1/payment/queue/notificationofchange",
+					"protocol": "https",
+					"host": [
+						"dev-api-banksimulator",
+						"nvoicepay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"payment",
+						"queue",
+						"notificationofchange"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getReasonCodes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev-api-banksimulator.nvoicepay.com/api/v1/ReasonCodes",
+					"protocol": "https",
+					"host": [
+						"dev-api-banksimulator",
+						"nvoicepay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"ReasonCodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSubmitted",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev-api-banksimulator.nvoicepay.com/api/v1/Payments/ach/Submitted?Page=1&PageSize=50&StartDate=2024-07-30&EndDate=2024-08-06&SearchTerm=&SortColumn=&SortOrder=",
+					"protocol": "https",
+					"host": [
+						"dev-api-banksimulator",
+						"nvoicepay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Payments",
+						"ach",
+						"Submitted"
+					],
+					"query": [
+						{
+							"key": "Page",
+							"value": "1"
+						},
+						{
+							"key": "PageSize",
+							"value": "50"
+						},
+						{
+							"key": "StartDate",
+							"value": "2024-07-30"
+						},
+						{
+							"key": "EndDate",
+							"value": "2024-08-06"
+						},
+						{
+							"key": "SearchTerm",
+							"value": "",
+							"description": "Searching on values for Payment ID, Payment GUID, Customer Number, Credit ACH File ID, and Debit ACHFile ID"
+						},
+						{
+							"key": "SortColumn",
+							"value": "",
+							"description": "Sorting on PaymentId, PaymentGuid, CreateDateUtc, CustomerNumber, AchDebitFileId, and AchCreditFileId"
+						},
+						{
+							"key": "SortOrder",
+							"value": "",
+							"description": "asc or desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getReceived",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev-api-banksimulator.nvoicepay.com/api/v1/Payments/ach/Received?Page=1&PageSize=50&StartDate=2024-07-30&EndDate=2024-08-06&SearchTerm=&SortColumn=&SortOrder=",
+					"protocol": "https",
+					"host": [
+						"dev-api-banksimulator",
+						"nvoicepay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"Payments",
+						"ach",
+						"Received"
+					],
+					"query": [
+						{
+							"key": "Page",
+							"value": "1"
+						},
+						{
+							"key": "PageSize",
+							"value": "50"
+						},
+						{
+							"key": "StartDate",
+							"value": "2024-07-30"
+						},
+						{
+							"key": "EndDate",
+							"value": "2024-08-06"
+						},
+						{
+							"key": "SearchTerm",
+							"value": "",
+							"description": "Searching on values for Payment ID, Payment GUID, Customer Number, Credit ACH File ID, and Debit ACHFile ID"
+						},
+						{
+							"key": "SortColumn",
+							"value": "",
+							"description": "Sorting on PaymentId, PaymentGuid, CreateDateUtc, CustomerNumber, AchDebitFileId, and AchCreditFileId"
+						},
+						{
+							"key": "SortOrder",
+							"value": "",
+							"description": "asc or desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getReasonCodes failures",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev-api-banksimulator.nvoicepay.com/api/v1/ReasonCodes/Failures",
+					"protocol": "https",
+					"host": [
+						"dev-api-banksimulator",
+						"nvoicepay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"ReasonCodes",
+						"Failures"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getReasonCodes NOC",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dev-api-banksimulator.nvoicepay.com/api/v1/ReasonCodes/NotificationofChanges",
+					"protocol": "https",
+					"host": [
+						"dev-api-banksimulator",
+						"nvoicepay",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"ReasonCodes",
+						"NotificationofChanges"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

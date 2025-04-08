@@ -1,0 +1,365 @@
+{
+	"id": "62dd113d-9611-47b4-8857-271641c7b6d2",
+	"name": "Dev Regression Test Accelerated ACH",
+	"values": [
+		{
+			"key": "Identity.Portal.Uri",
+			"value": "https://dev-identity.nvoicepay.com/",
+			"enabled": true
+		},
+		{
+			"key": "Identity.ClientID",
+			"value": "da7ba18e595d43488fa032330780e897",
+			"enabled": true
+		},
+		{
+			"key": "Identity.ClientSecret",
+			"value": "AwiAqWtpP3nkGKjYoC1zrxATpftT0Lfhi6UiMvyvYx6dPGcmzYCvTjpi6Fc1emAA",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Identity.BearerToken",
+			"value": "",
+			"enabled": false
+		},
+		{
+			"key": "APGateway.ApiKey",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "APGateway.ApiPwd",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "APGateway.ApiSession",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "APGateway.Url",
+			"value": "https://apgatewaydev.nvoicepay.com/",
+			"enabled": true
+		},
+		{
+			"key": "AzureStorage.Api.Url",
+			"value": "https://dev-api-azurestorage.nvoicepay.com/",
+			"enabled": true
+		},
+		{
+			"key": "CoreData.Api.Uri",
+			"value": "https://dev-api-core.nvoicepay.com/",
+			"enabled": true
+		},
+		{
+			"key": "CustomerApi.Url",
+			"value": "https://dev-api-customer.nvoicepay.com/",
+			"enabled": true
+		},
+		{
+			"key": "DealertrackApi.Url",
+			"value": "https://nvp-dev-api-dealertrack-app.azurewebsites.net/",
+			"enabled": true
+		},
+		{
+			"key": "Identity.Api.Uri",
+			"value": "https://api-identity-dev.nvoicepay.com/",
+			"enabled": true
+		},
+		{
+			"key": "InternationalPayments.Api.Key",
+			"value": "c4f45a86b9c3485cbed1e03a89953c5f",
+			"enabled": true
+		},
+		{
+			"key": "InternationalPayments.Api.Uri",
+			"value": "https://apisdev.nvoicepay.com/",
+			"enabled": true
+		},
+		{
+			"key": "VendorListApi.Url",
+			"value": "http://localhost:5000/",
+			"enabled": true
+		},
+		{
+			"key": "Identity.BearerToken",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "CustomerApi.PaymentBatchID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "CustomerApi.CompanyID",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "BearerToken",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "CustomerApi.CorrelationID",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CustomerApi.ReportID",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ReturnFilesApi.Uri",
+			"value": "https://apisdev.nvoicepay.com/customer/",
+			"enabled": true
+		},
+		{
+			"key": "CustomerAPI.Url",
+			"value": "https://dev-api-customer.nvoicepay.com/",
+			"enabled": true
+		},
+		{
+			"key": "CustomerPortalApi.Uri",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "PayForYouApi.Url",
+			"value": "https://dev-api-payforyou.nvoicepay.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Bearer",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CustomerApi.PaymentID",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "AzureStorageApi.Url",
+			"value": "https://dev-api-azurestorage.nvoicepay.com/",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "AzureStorageApi.CustomerGuid",
+			"value": "E3629A28-88BB-431A-8D72-31D7B30FC1C0",
+			"enabled": true
+		},
+		{
+			"key": "AchManagementApi.Url",
+			"value": "https://dev-api-achmanagement.nvoicepay.com/",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ACHBundleId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "enrollmentToken",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ACH_ValidMasterVendorGuid",
+			"value": "4BDBAD8B-AB48-41EB-9424-935D6291018E",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ACH_MasterVendorAcceptsMCGuid",
+			"value": "a41e567e-ea42-4a68-9053-a239d32a832d",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ACH_MasterVendorAcceptsNVPGuid",
+			"value": "09ab6644-08e6-4bc7-a813-33b4e19bfbcb",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ACH_MasterVendorVendorPaymentAggregationGuid",
+			"value": "27B359C8-C441-4B60-8BBB-44C842EACA6E",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "defaultMiniumFee",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "defaultMaximumFee",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "defaultPoints",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "limitsMinPoints",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "limitsMaxPoints",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "limitsMinFee",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ACH_inValidMasterVendorGuid",
+			"value": "00011D4C-3682-46C1-8B01-C62425C745",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ACH_MasterVendorGuidDoesNotExist",
+			"value": "27B359C8-C441-4B60-8BBB-44C842EACA3a",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ACH_ValidMasterVendorAlreadyEnrolledSDACH",
+			"value": "fbdc200f-940b-4503-9024-4671d303baf5",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "greatMiniumFee",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "lessMiniumFee",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "lessPoints",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "greatMaxFee",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "lessMaxFee",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "RetentionEnrollmentTokenMC",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "RetentionEnrollmentTokenNVP",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ACH_notFoundMasterVendorGuid",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "invalidEnrollmentToken",
+			"value": "ea79d62f-cc54-4dc7-a11e-496e07056d2i",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "MasterVendorDoesNotExist",
+			"value": "10011D4C-3682-46C1-8B01-C62425C74D85",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "VendorAcceleratedACH",
+			"value": "VendorAcceleratedACH",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "DefaultPercentFee",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "lessPercentFee",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "greatPercentFee",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "limitsThresholdAmount",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "enrollmentTokenMC",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "enrollmentTokenNVP",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-06-19T01:17:48.890Z",
+	"_postman_exported_using": "Postman/10.24.25"
+}

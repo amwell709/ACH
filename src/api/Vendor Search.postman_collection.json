@@ -1,0 +1,773 @@
+{
+	"info": {
+		"_postman_id": "7f10463c-7b1f-4956-a70e-6b45e3a95716",
+		"name": "Vendor Search",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33759947",
+		"_collection_link": "https://nvoicepay.postman.co/workspace/Client-Solutions~028dec63-921a-49ca-acb5-1bf3e6734ae3/collection/33759947-7f10463c-7b1f-4956-a70e-6b45e3a95716?action=share&source=collection_link&creator=33759947"
+	},
+	"item": [
+		{
+			"name": "Get Bearer Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"Identity.BearerToken\", jsonData[\"access_token\"]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "{{Identity.ClientID}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{Identity.ClientSecret}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Identity.Portal.Uri}}connect/token",
+					"host": [
+						"{{Identity.Portal.Uri}}connect"
+					],
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search full search w/o filter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response body is present\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json( );\r",
+							"pm.test(\"Test data type of response\", () => {\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"indexConfigurationId\": \"vendors\",\r\n  \"appId\": \"vendor-index-otk\",\r\n  \"pageNumber\": 1,\r\n  \"pageSize\": 25,\r\n  \"fullSearch\": \"Chris\",\r\n  \"filters\": [],\r\n  \"searchProperties\": []\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/search/vendors",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"search",
+						"vendors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Address/State Operator 0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response body is present\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"indexConfigurationId\": \"vendors\",\r\n  \"appId\": \"vendor-index-otk\",\r\n  \"pageNumber\": 1,\r\n  \"pageSize\": 25,\r\n  \"fullSearch\": \"\",\r\n  \"filters\": [\r\n    {\r\n      \"fieldName\": \"Addresses/State\",\r\n      \"value\": \"Oregon\",\r\n      \"operator\": 0\r\n    }\r\n  ],\r\n  \"searchProperties\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/search/vendors",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"search",
+						"vendors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Address/State Operator 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response body is present\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"indexConfigurationId\": \"vendors\",\r\n  \"appId\": \"vendor-index-otk\",\r\n  \"pageNumber\": 1,\r\n  \"pageSize\": 25,\r\n  \"fullSearch\": \"\",\r\n  \"filters\": [\r\n    {\r\n      \"fieldName\": \"Addresses/State\",\r\n      \"value\": \"Oregon\",\r\n      \"operator\": 1\r\n    }\r\n  ],\r\n  \"searchProperties\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/search/vendors",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"search",
+						"vendors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search emmails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response body is present\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"indexConfigurationId\": \"vendors\",\r\n  \"appId\": \"vendor-index-otk\",\r\n  \"pageNumber\": 1,\r\n  \"pageSize\": 25,\r\n  \"fullSearch\": \"\",\r\n  \"filters\": [\r\n    {\r\n      \"fieldName\": \"Addresses/State\",\r\n      \"value\": \"Oregon\",\r\n      \"operator\": 0\r\n    }\r\n  ],\r\n  \"searchProperties\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/search/vendors",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"search",
+						"vendors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search emmails Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response body is present\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"indexConfigurationId\": \"vendors\",\r\n  \"appId\": \"vendor-index-otk\",\r\n  \"pageNumber\": 1,\r\n  \"pageSize\": 25,\r\n  \"fullSearch\": \"\",\r\n  \"filters\": [\r\n    {\r\n      \"fieldName\": \"Addresses/State\",\r\n      \"value\": \"Oregon\",\r\n      \"operator\": 0\r\n    }\r\n  ],\r\n  \"searchProperties\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/search/vendors",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"search",
+						"vendors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search validation Id fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response body is present\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json( );\r",
+							"pm.test(\"Test data type of response\", () => {\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"error message\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"The AppId field is required\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"The IndexConfigurationId field is required\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"indexConfigurationId\": \"\",\r\n  \"appId\": \"\",\r\n  \"pageNumber\": 1,\r\n  \"pageSize\": 25,\r\n  \"fullSearch\": \"\",\r\n  \"filters\": [\r\n    {\r\n      \"fieldName\": \"Addresses/State\",\r\n      \"value\": \"Oregon\",\r\n      \"operator\": 0\r\n    }\r\n  ],\r\n  \"searchProperties\": []\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/search/vendors",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"search",
+						"vendors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search validation PageNumber/Size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response body is present\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"error message\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"The field PageSize must be between 10 and 1.7976931348623157E+308.\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"error message\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"The field PageNumber must be between 1 and 1.7976931348623157E+308.\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"indexConfigurationId\": \"vendors\",\r\n  \"appId\": \"vendor-index-otk\",\r\n  \"pageNumber\":0 ,\r\n  \"pageSize\": 3,\r\n  \"fullSearch\": \"\",\r\n  \"filters\": [\r\n    {\r\n      \"fieldName\": \"Addresses/State\",\r\n      \"value\": \"Oregon\",\r\n      \"operator\": 0\r\n    }\r\n  ],\r\n  \"searchProperties\": []\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/search/vendors",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"search",
+						"vendors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search exceptions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response body is present\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"error message\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"is not part of the index\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"indexConfigurationId\": \"vendors\",\r\n  \"appId\": \"vendor-index-otk\",\r\n  \"pageNumber\": 1,\r\n  \"pageSize\": 10,\r\n  \"fullSearch\": \"\",\r\n  \"filters\": [\r\n    {\r\n      \"fieldName\": \"Addresses/Stateee\",\r\n      \"value\": \"Oregon\",\r\n      \"operator\": 0\r\n    }\r\n  ],\r\n  \"searchProperties\": []\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/search/vendors",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"search",
+						"vendors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Configuration-index",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/configuration/vendors",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"configuration",
+						"vendors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Configuration-SyncVersions",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/configuration/vendors/SyncVersions",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"configuration",
+						"vendors",
+						"SyncVersions"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Configuration-application",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"appId\": \"vendor-index-otk-test\",\r\n  \"indexConfigurationId\": \"vendors-Test\",\r\n   \"activeFacets\": [\r\n        \"AcceptsACH\",\r\n        \"AcceptsAMEX\",\r\n        \"AcceptsMasterCard\",\r\n        \"AcceptsVisa\",\r\n        \"AcceptsCheck\",\r\n        \"AcceptsNVPPaymentCard\",\r\n        \"Addresses/State\",\r\n        \"Addresses/City\"\r\n        ],\r\n  \"selectedProperties\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/configuration/application",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"configuration",
+						"application"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Configuration-index",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"vendors-Lei\",\r\n    \"activeIndexName\": \"master_vendor_search_composite4\",\r\n    \"previousIndexName\": \"master_vendor_search_composite3\",\r\n    \"startReindex\": false,\r\n    \"reindexingInProgress\": false,\r\n    \"currentReindexingPage\": 0,\r\n    \"searchSyncVersions\": [\r\n        {\r\n            \"database\": \"ZpTransactions\",\r\n            \"lastSync\": \"2024-10-21T20:49:14.127Z\",\r\n            \"lastSyncVersion\": 0\r\n        }\r\n    ],\r\n  \"appConfigurations\": [\r\n    {\r\n            \"appId\": \"vendor-index-otk-Lei\",\r\n            \"indexConfigurationId\": \"vendors\",\r\n\t     \"indexName\": \"master_vendor_search_composite4\",\r\n            \"activeFacets\": [\r\n                \"AcceptsACH\",\r\n                \"AcceptsAMEX\",\r\n                \"AcceptsMasterCard\",\r\n                \"AcceptsVisa\",\r\n                \"AcceptsCheck\",\r\n                \"AcceptsNVPPaymentCard\",\r\n                \"Addresses/State\",\r\n                \"Addresses/City\"\r\n      ],\r\n \"selectedProperties\": []\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/configuration/",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"configuration",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Configuration-reindex",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"indexConfigurationId\": \"vendors-Test\",\r\n  \"activeIndexName\": \"master_vendor_search_composite4\",\r\n  \"previousIndexName\": \"master_vendor_search_composite3\",\r\n  \"startReindex\": true,\r\n  \"reindexingInProgress\": true,\r\n  \"currentReindexingPage\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/configuration/reindex",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"configuration",
+						"reindex"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Configuration-SyncVersions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Identity.BearerToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"database\": \"ZpTransactions\",\r\n    \"lastSync\": \"2024-10-22T19:49:14.127Z\",\r\n    \"lastSyncVersion\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{VendorSearch}}/api/v2/configuration/vendors-Test/SyncVersions",
+					"host": [
+						"{{VendorSearch}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"configuration",
+						"vendors-Test",
+						"SyncVersions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
