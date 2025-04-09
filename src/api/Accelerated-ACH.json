@@ -1,0 +1,2640 @@
+{
+	"info": {
+		"_postman_id": "ba406733-204c-4b4c-848d-762a93918ba5",
+		"name": "ACH Management API - Regression  Accelerated ACH",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33759947",
+		"_collection_link": "https://nvoicepay.postman.co/workspace/Client-Solutions~028dec63-921a-49ca-acb5-1bf3e6734ae3/collection/33759947-ba406733-204c-4b4c-848d-762a93918ba5?action=share&source=collection_link&creator=33759947"
+	},
+	"item": [
+		{
+			"name": "Get Bearer Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"Identity.BearerToken\", jsonData[\"access_token\"]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "{{Identity.ClientID}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{Identity.ClientSecret}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Identity.Portal.Uri}}connect/token",
+					"host": [
+						"{{Identity.Portal.Uri}}connect"
+					],
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ServiceHealthCheckOK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"ACH Bundles HealthCheck successful\", function() {\r",
+							"      pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/health/health",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"health",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Defaults",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response body is present\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"defaultMiniumFee\",JSON.parse(responseBody).minFee);\r",
+							"defaultMin = JSON.parse(responseBody).minFee;\r",
+							"gtMinFee = (JSON.parse(responseBody).minFee + 1)\r",
+							"pm.environment.set(\"greatMiniumFee\", gtMinFee);\r",
+							"lessMinFee = (defaultMin - defaultMin - 0.5);\r",
+							"pm.environment.set(\"lessMiniumFee\",lessMinFee);\r",
+							"\r",
+							"pm.environment.set(\"defaultMaximumFee\",JSON.parse(responseBody).maxFee);\r",
+							"gtMaxFee = (JSON.parse(responseBody).maxFee + 1);\r",
+							"pm.environment.set(\"greatMaxFee\",gtMaxFee);\r",
+							"lessMaxFee = (JSON.parse(responseBody).maxFee - 0.5);\r",
+							"pm.environment.set(\"lessMaxFee\",lessMaxFee);\r",
+							"\r",
+							"pm.environment.set(\"DefaultPercentFee\",JSON.parse(responseBody).percentFee);\r",
+							"defaultPt = JSON.parse(responseBody).percentFee;\r",
+							"gtPoints = (defaultPt + 1);\r",
+							"pm.environment.set(\"greatPercentFee\",gtPoints);\r",
+							"lessPoints = (defaultPt - defaultPt - 0.5);\r",
+							"pm.environment.set(\"lessPercentFee\",lessPoints);\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/defaults",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"defaults"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Limits",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response body is present\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"limitsMinPoints\",JSON.parse(responseBody).minPoints);\r",
+							"\r",
+							"pm.environment.set(\"limitsMaxPoints\",JSON.parse(responseBody).maxPoints);\r",
+							"\r",
+							"pm.environment.set(\"limitsMinFee\",JSON.parse(responseBody).minFee);\r",
+							"\r",
+							"pm.environment.set(\"limitsThresholdAmount\",JSON.parse(responseBody).thresholdAmount);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/limits",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"limits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eligibility",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response body is present\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Is Eligible is true\", function () {\r",
+							"    pm.expect(JSON.parse(responseBody).isEligible).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_ValidMasterVendorGuid}}/Eligibility",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_ValidMasterVendorGuid}}",
+						"Eligibility"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eligibility Accepts MC",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Is Eligible is False\", function () {\r",
+							"    pm.expect(jsonData.isEligible).to.equal(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ineligibleReason\", function () {\r",
+							"    pm.expect(jsonData.ineligibleReason).to.equal(\"Master Vendor accepts Mastercard\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_MasterVendorAcceptsMCGuid}}/Eligibility",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_MasterVendorAcceptsMCGuid}}",
+						"Eligibility"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retention/Eligibility Accepts MC",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Is Eligible is False\", function () {\r",
+							"    pm.expect(jsonData.isEligible).to.equal(true);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_MasterVendorAcceptsMCGuid}}/Eligibility/Retention",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_MasterVendorAcceptsMCGuid}}",
+						"Eligibility",
+						"Retention"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eligibility Accepts NVP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Is Eligible is False\", function () {\r",
+							"    pm.expect(jsonData.isEligible).to.equal(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ineligibleReason\", function () {\r",
+							"    pm.expect(jsonData.ineligibleReason).to.equal(\"Master Vendor accepts NVP Card\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_MasterVendorAcceptsNVPGuid}}/Eligibility",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_MasterVendorAcceptsNVPGuid}}",
+						"Eligibility"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retention/Eligibility Accepts NVP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Is Eligible is False\", function () {\r",
+							"    pm.expect(jsonData.isEligible).to.equal(true);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_MasterVendorAcceptsNVPGuid}}/Eligibility/Retention",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_MasterVendorAcceptsNVPGuid}}",
+						"Eligibility",
+						"Retention"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enrollment Token Eligible",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert that the response status is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Extract the 'enrollment token' from the response\r",
+							"var enrollmentUrl = JSON.parse(responseBody).enrollmentUrl;\r",
+							"var token = enrollmentUrl.split(\"=\");\r",
+							"pm.environment.set(\"enrollmentToken\",token[1]);\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"masterVendorGuid\":\"{{ACH_ValidMasterVendorGuid}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enrollment Token Accepts Master Card",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert that the response status is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Extract the 'enrollment token' from the response\r",
+							"var enrollmentUrl = JSON.parse(responseBody).enrollmentUrl;\r",
+							"var token = enrollmentUrl.split(\"=\");\r",
+							"pm.environment.set(\"enrollmentTokenMC\",token[1]);\r",
+							"\r",
+							"// Although generate an enrollment URL, enroll via a browser, will display 'Looks like you are not eligible.' as expected\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"masterVendorGuid\":\"{{ACH_MasterVendorAcceptsMCGuid}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enrollment Token Accepts NVP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert that the response status is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Extract the 'enrollment token' from the response\r",
+							"var enrollmentUrl = JSON.parse(responseBody).enrollmentUrl;\r",
+							"var token = enrollmentUrl.split(\"=\");\r",
+							"pm.environment.set(\"enrollmentTokenMC\",token[1]);\r",
+							"\r",
+							"// Although generate an enrollment URL, enroll via a browser, will display 'Looks like you are not eligible.' as expected\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"masterVendorGuid\":\"{{ACH_MasterVendorAcceptsNVPGuid}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorNotConfigured",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404 for no configuration\", function() {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Master Vendor is not configured\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"No configurations found for MasterVendor\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorChangeAll Eligiable",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"minFee\":{{greatMiniumFee}},\r\n    \"maxFee\":{{lessMaxFee}},\r\n    \"PercentFee\":{{DefaultPercentFee}},\r\n    \"blocked\":false,\r\n    \"userName\": \"Axian tester #1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorChangeAll-MC",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"minFee\":{{defaultMiniumFee}},\r\n    \"maxFee\":{{defaultMaximumFee}},\r\n    \"PercentFee\":{{DefaultPercentFee}},\r\n     \"blocked\":false,\r\n     \"userName\": \"Axian tester #1\"    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_MasterVendorAcceptsMCGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_MasterVendorAcceptsMCGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorChangeAll-NVP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned 200\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"minFee\": {{defaultMiniumFee}},\r\n  \"maxFee\": {{defaultMaximumFee}},\r\n  \"blocked\": false,\r\n\"PercentFee\":{{DefaultPercentFee}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_MasterVendorAcceptsNVPGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_MasterVendorAcceptsNVPGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorConfigured",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Master Vendor is configured\", function() {\r",
+							"      pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test/Exceptions/exception",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Helper function to check if a string is a valid GUID\r",
+							"function isValidGUID(guid) {\r",
+							"    var regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;\r",
+							"    return regex.test(guid);\r",
+							"}\r",
+							"\r",
+							"// Parse the response body as JSON\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"// Construct the expected supportMessage using the errorId from the response\r",
+							"var expectedSupportMessage = `Provide the Error Id: ${responseBody.errorId} to the support team for further analysis.`;\r",
+							"\r",
+							"// Validate the statusCode in the response\r",
+							"pm.test(\"Status code is 500\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"});\r",
+							"\r",
+							"// Validate the structure and content of the response\r",
+							"pm.test(\"Validate response structure and content\", function() {\r",
+							"    // Check if all expected properties exist\r",
+							"    pm.expect(responseBody).to.have.property('messages').that.is.an('array').that.deep.includes(\"Test Exception\");\r",
+							"    pm.expect(responseBody).to.have.property('source', 'NVP.Api.AchManagement.Web.Controllers.TestController');\r",
+							"    \r",
+							"    // Use the helper function to validate that errorId is a valid GUID\r",
+							"    pm.test(\"errorId is a valid GUID\", function() {\r",
+							"        pm.expect(isValidGUID(responseBody.errorId)).to.be.true;\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"Validate supportMessage with dynamic errorId\", function() {\r",
+							"        pm.expect(responseBody).to.have.property('supportMessage').that.equals(expectedSupportMessage);\r",
+							"    });\r",
+							"\r",
+							"    pm.expect(responseBody).to.have.property('statusCode', 500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/Test/Exceptions/exception",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"Test",
+						"Exceptions",
+						"exception"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test/Exceptions/badArgument",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Helper function to check if a string is a valid GUID\r",
+							"function isValidGUID(guid) {\r",
+							"    var regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;\r",
+							"    return regex.test(guid);\r",
+							"}\r",
+							"\r",
+							"// Parse the response body as JSON\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"// Construct the expected supportMessage using the errorId from the response\r",
+							"var expectedSupportMessage = `Provide the Error Id: ${responseBody.errorId} to the support team for further analysis.`;\r",
+							"\r",
+							"// Validate the statusCode in the response\r",
+							"pm.test(\"Status code is 500\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"});\r",
+							"\r",
+							"// Validate the structure and content of the response\r",
+							"pm.test(\"Validate response structure and content\", function() {\r",
+							"    // Check if all expected properties exist\r",
+							"    pm.expect(responseBody).to.have.property('messages').that.is.an('array').that.deep.includes(\"Test Bad Argument Exception\");\r",
+							"    pm.expect(responseBody).to.have.property('source', 'NVP.Api.AchManagement.Web.Controllers.TestController');\r",
+							"    \r",
+							"    // Use the helper function to validate that errorId is a valid GUID\r",
+							"    pm.test(\"errorId is a valid GUID\", function() {\r",
+							"        pm.expect(isValidGUID(responseBody.errorId)).to.be.true;\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"Validate supportMessage with dynamic errorId\", function() {\r",
+							"        pm.expect(responseBody).to.have.property('supportMessage').that.equals(expectedSupportMessage);\r",
+							"    });\r",
+							"\r",
+							"    pm.expect(responseBody).to.have.property('statusCode', 500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/Test/Exceptions/badArgument",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"Test",
+						"Exceptions",
+						"badArgument"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test/Exceptions/notFound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Helper function to check if a string is a valid GUID\r",
+							"function isValidGUID(guid) {\r",
+							"    var regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;\r",
+							"    return regex.test(guid);\r",
+							"}\r",
+							"\r",
+							"// Parse the response body as JSON\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"// Construct the expected supportMessage using the errorId from the response\r",
+							"var expectedSupportMessage = `Provide the Error Id: ${responseBody.errorId} to the support team for further analysis.`;\r",
+							"\r",
+							"// Validate the statusCode in the response\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"// Validate the structure and content of the response\r",
+							"pm.test(\"Validate response structure and content\", function() {\r",
+							"    // Check if all expected properties exist\r",
+							"    pm.expect(responseBody).to.have.property('messages').that.is.an('array').that.deep.includes(\"Test Not Found Exception\");\r",
+							"    pm.expect(responseBody).to.have.property('source', 'NVP.Api.AchManagement.Web.Controllers.TestController');\r",
+							"    \r",
+							"    // Use the helper function to validate that errorId is a valid GUID\r",
+							"    pm.test(\"errorId is a valid GUID\", function() {\r",
+							"        pm.expect(isValidGUID(responseBody.errorId)).to.be.true;\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"Validate supportMessage with dynamic errorId\", function() {\r",
+							"        pm.expect(responseBody).to.have.property('supportMessage').that.equals(expectedSupportMessage);\r",
+							"    });\r",
+							"\r",
+							"    pm.expect(responseBody).to.have.property('statusCode', 404);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/Test/Exceptions/notFound",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"Test",
+						"Exceptions",
+						"notFound"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EligibilityAcceptsMC Enrolled Accelerated ACH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Is Eligible is False\", function () {\r",
+							"    pm.expect(jsonData.isEligible).to.equal(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ineligibleReason\", function () {\r",
+							"    pm.expect(jsonData.ineligibleReason).to.equal(\"Master Vendor is already signed up for Vendor Accelerated ACH\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_MasterVendorAcceptsMCGuid}}/Eligibility",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_MasterVendorAcceptsMCGuid}}",
+						"Eligibility"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retention/EligibilityAcceptsMC Enrolled Accelerated ACH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Is Eligible is False\", function () {\r",
+							"    pm.expect(jsonData.isEligible).to.equal(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ineligibleReason\", function () {\r",
+							"    pm.expect(jsonData.ineligibleReason).to.equal(\"Master Vendor is already signed up for Vendor Accelerated ACH\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_MasterVendorAcceptsMCGuid}}/Eligibility/Retention",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_MasterVendorAcceptsMCGuid}}",
+						"Eligibility",
+						"Retention"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retention/MasterVendor MC",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"var enrollmentUrl = JSON.parse(responseBody).enrollmentUrl;\r",
+							"var token = enrollmentUrl.split(\"=\");\r",
+							"pm.environment.set(\"RetentionEnrollmentTokenMC\",token[1]);\r",
+							"\r",
+							"pm.test(\"TokenType\", function () {\r",
+							"    pm.expect(jsonData.tokenType).to.equal(\"retention\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken/retention/MasterVendor/{{ACH_MasterVendorAcceptsMCGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken",
+						"retention",
+						"MasterVendor",
+						"{{ACH_MasterVendorAcceptsMCGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retention/MasterVendor MC Invalid GUID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Title\", function () {\r",
+							"    pm.expect(jsonData.title).to.equal(\"One or more validation errors occurred.\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken/retention/MasterVendor/{{ACH_inValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken",
+						"retention",
+						"MasterVendor",
+						"{{ACH_inValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eligibility Accepts NVP Enrolled Accelerated ACH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Is Eligible is False\", function () {\r",
+							"    pm.expect(jsonData.isEligible).to.equal(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ineligibleReason\", function () {\r",
+							"    pm.expect(jsonData.ineligibleReason).to.equal(\"Master Vendor is already signed up for Vendor Accelerated ACH\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_MasterVendorAcceptsNVPGuid}}/Eligibility",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_MasterVendorAcceptsNVPGuid}}",
+						"Eligibility"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retention/Eligibility Accepts NVP Enrolled Accelerated ACH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Is Eligible is False\", function () {\r",
+							"    pm.expect(jsonData.isEligible).to.equal(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ineligibleReason\", function () {\r",
+							"    pm.expect(jsonData.ineligibleReason).to.equal(\"Master Vendor is already signed up for Vendor Accelerated ACH\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_MasterVendorAcceptsNVPGuid}}/Eligibility/Retention",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_MasterVendorAcceptsNVPGuid}}",
+						"Eligibility",
+						"Retention"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retention/MasterVendor NVP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"var enrollmentUrl = JSON.parse(responseBody).enrollmentUrl;\r",
+							"var token = enrollmentUrl.split(\"=\");\r",
+							"pm.environment.set(\"RetentionEnrollmentTokenNVP\",token[1]);\r",
+							"\r",
+							"pm.test(\"TokenType\", function () {\r",
+							"    pm.expect(jsonData.tokenType).to.equal(\"retention\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken/retention/MasterVendor/{{ACH_MasterVendorAcceptsNVPGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken",
+						"retention",
+						"MasterVendor",
+						"{{ACH_MasterVendorAcceptsNVPGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eligibility Uses Aggregate Payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Is Eligible is False\", function () {\r",
+							"    pm.expect(jsonData.isEligible).to.equal(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ineligibleReason\", function () {\r",
+							"    pm.expect(jsonData.ineligibleReason).to.equal(\"Master Vendor is signed up for payment aggregation\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_MasterVendorVendorPaymentAggregationGuid}}/Eligibility",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_MasterVendorVendorPaymentAggregationGuid}}",
+						"Eligibility"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retention/Eligibility Uses Aggregate Payments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Is Eligible is False\", function () {\r",
+							"    pm.expect(jsonData.isEligible).to.equal(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ineligibleReason\", function () {\r",
+							"    pm.expect(jsonData.ineligibleReason).to.equal(\"Master Vendor is signed up for payment aggregation\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_MasterVendorVendorPaymentAggregationGuid}}/Eligibility/Retention",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_MasterVendorVendorPaymentAggregationGuid}}",
+						"Eligibility",
+						"Retention"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eligibility Invalid GUID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_inValidMasterVendorGuid}}/Eligibility",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_inValidMasterVendorGuid}}",
+						"Eligibility"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eligibility Master Vendor Does Not Exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_MasterVendorGuidDoesNotExist}}/Eligibility",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_MasterVendorGuidDoesNotExist}}",
+						"Eligibility"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EnrollmentToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert that the response status is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Parse the response body as JSON\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"// Assert that masterVendorGuid is present and has a valid GUID format\r",
+							"pm.test(\"masterVendorGuid is valid\", function () {\r",
+							"    // Check if masterVendorGuid exists\r",
+							"    pm.expect(responseBody).to.have.property('masterVendorGuid');\r",
+							"    \r",
+							"    // Define the regular expression for a valid GUID\r",
+							"    var guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;\r",
+							"    \r",
+							"    // Check if masterVendorGuid is a valid GUID\r",
+							"    pm.expect(responseBody.masterVendorGuid).to.match(guidRegex);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken/{{enrollmentToken}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken",
+						"{{enrollmentToken}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retention EnrollmentToken MC",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert that the response status is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Parse the response body as JSON\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"// Assert that masterVendorGuid is present and has a valid GUID format\r",
+							"pm.test(\"masterVendorGuid is valid\", function () {\r",
+							"    // Check if masterVendorGuid exists\r",
+							"    pm.expect(responseBody).to.have.property('masterVendorGuid');\r",
+							"    \r",
+							"    // Define the regular expression for a valid GUID\r",
+							"    var guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;\r",
+							"    \r",
+							"    // Check if masterVendorGuid is a valid GUID\r",
+							"    pm.expect(responseBody.masterVendorGuid).to.match(guidRegex);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"TokenType\", function () {\r",
+							"    pm.expect(responseBody.tokenType).to.equal(\"retention\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken/{{RetentionEnrollmentTokenMC}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken",
+						"{{RetentionEnrollmentTokenMC}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retention EnrollmentToken NVP",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert that the response status is 200\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Parse the response body as JSON\r",
+							"var responseBody = pm.response.json();\r",
+							"\r",
+							"// Assert that masterVendorGuid is present and has a valid GUID format\r",
+							"pm.test(\"masterVendorGuid is valid\", function () {\r",
+							"    // Check if masterVendorGuid exists\r",
+							"    pm.expect(responseBody).to.have.property('masterVendorGuid');\r",
+							"    \r",
+							"    // Define the regular expression for a valid GUID\r",
+							"    var guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;\r",
+							"    \r",
+							"    // Check if masterVendorGuid is a valid GUID\r",
+							"    pm.expect(responseBody.masterVendorGuid).to.match(guidRegex);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken/{{RetentionEnrollmentTokenNVP}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken",
+						"{{RetentionEnrollmentTokenNVP}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EnrollmentToken Invalid GUID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert that the response status is 400\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"masterVendorGuid\":\"{{ACH_inValidMasterVendorGuid}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EnrollmentToken Invalid GUID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert that the response status is 400\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken/{{invalidEnrollmentToken}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken",
+						"{{invalidEnrollmentToken}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EnrollmentToken MasterVendor Does Not Exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert that the response status is 404\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Master vendor doesn't exist\", function() {\r",
+							"    pm.expect(jsonData.supportMessage).include(\"support team for further analysis.\")\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"masterVendorGuid\":\"{{MasterVendorDoesNotExist}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EnrollmentToken Token Does Not Exist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Assert that the response status is 404\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/enrollmenttoken/391a7eee-c4f0-4217-81b9-0031e126564b",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"enrollmenttoken",
+						"391a7eee-c4f0-4217-81b9-0031e126564b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eligibility Already Accelerated ACH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Is Eligible is False\", function () {\r",
+							"    pm.expect(jsonData.isEligible).to.equal(false);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ineligibleReason\", function () {\r",
+							"    pm.expect(jsonData.ineligibleReason).to.equal(\"Master Vendor is already signed up for Vendor Accelerated ACH\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/MasterVendor/{{ACH_ValidMasterVendorGuid}}/Eligibility",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"MasterVendor",
+						"{{ACH_ValidMasterVendorGuid}}",
+						"Eligibility"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorNoVendorSupplied",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Not supplied Master Vendor GUID\", function() {\r",
+							"      pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"minFee\":11.00,\r\n    \"maxFee\":222.00,\r\n    \"points\":0.33,\r\n    \"thresholdAmount\":444,\r\n     \"blocked\":false,\r\n     \"userName\": \"Axian tester #1\"\r\n     }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorChangeMinGreaterThanMin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"minFee\":{{greatMiniumFee}},\r\n    \"maxFee\":{{defaultMaximumFee}},\r\n    \"PercentFee\":{{DefaultPercentFee}},\r\n     \"blocked\":false,\r\n     \"userName\": \"Axian tester #1\"\r\n     }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorChangeMinLessThanMin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned 400\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate error message\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(pm.response.text()).to.include(\"MinFee must be >=\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"minFee\":{{lessMiniumFee}},\r\n    \"maxFee\":{{defaultMaximumFee}},\r\n    \"PercentFee\":{{DefaultPercentFee}},\r\n     \"blocked\":false,\r\n     \"userName\": \"Axian tester #1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorChangeMaxLessThanMax",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"minFee\":{{defaultMiniumFee}},\r\n    \"maxFee\":{{lessMaxFee}},\r\n    \"PercentFee\":{{DefaultPercentFee}},\r\n     \"blocked\":false,\r\n     \"userName\": \"Axian tester #1\"\r\n     }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorChangeMaxLessThanMin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned 400\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate error message\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(pm.response.text()).to.include(\"MaxFee must be >= MinFee\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"minFee\":{{defaultMiniumFee}},\r\n    \"maxFee\":{{lessMiniumFee}},\r\n    \"PercentFee\":{{DefaultPercentFee}},\r\n     \"blocked\":false,\r\n     \"userName\": \"Axian tester #1\"\r\n     }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorChangePointsGreaterThanPoint",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"minFee\":{{defaultMiniumFee}},\r\n    \"maxFee\":{{defaultMaximumFee}},\r\n    \"PercentFee\":{{greatPercentFee}},\r\n    \"userName\": \"Axian tester #1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorChangePointsLessThanPoints",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned 400\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate error message\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(pm.response.text()).to.include(\"PercentFee must be >=\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"minFee\":{{defaultMiniumFee}},\r\n    \"maxFee\":{{defaultMaximumFee}},\r\n    \"PercentFee\":{{lessPercentFee}},\r\n     \"blocked\":false,\r\n     \"userName\": \"Axian tester #1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorChangeBlocked",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Is Eligible is true\", function () {\r",
+							"    pm.expect(JSON.parse(responseBody).blocked).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"blocked\":true,\r\n     \"userName\": \"Axian tester #1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}/blocked",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}",
+						"blocked"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorChangeBlocked",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get blocked status\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Is Eligible is true\", function () {\r",
+							"    pm.expect(JSON.parse(responseBody).blocked).to.equal(true);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}/blocked",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}",
+						"blocked"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorUnBlocked",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"PUT unblocked successfully\", function () {\r",
+							"    pm.expect(JSON.parse(responseBody).blocked).to.equal(false);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"blocked\":false,\r\n     \"userName\": \"Axian tester #2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}/blocked",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}",
+						"blocked"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorChangeToDefault",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned successfully\", function() {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"minFee\":{{defaultMiniumFee}},\r\n    \"maxFee\":{{defaultMaximumFee}},\r\n    \"PercentFee\":{{DefaultPercentFee}},\r\n     \"blocked\":false,\r\n     \"userName\": \"Axian tester #1\"    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorErrorBadVendor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned 400 for invalid vendor\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"    pm.expect(pm.response.text()).to.include(\"Invalid MasterVendor\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"minFee\":{{defaultMiniumFee}},\r\n    \"maxFee\":{{defaultMaximumFee}},\r\n    \"PercentFee\":{{DefaultPercentFee}},\r\n    \"blocked\":false,\r\n     \"userName\": \"Li Lei\"\r\n     }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/00000000-0000-0000-0000-000000000000",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorErrorRequiredFields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned 400\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Max Fee required fields message\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"The MaxFee field is required.\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Min Fee required fields message\", function() {\r",
+							"pm.expect(pm.response.text()).to.include(\"The MinFee field is required.\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Percent Fee required fields message\", function() {\r",
+							"pm.expect(pm.response.text()).to.include(\"The PercentFee field is required.\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate key length\", function() {\r",
+							"pm.expect(Object.keys(jsonData[\"errors\"]).length).to.eql(3);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorErrorInvalidValues",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT returned 400 for min greater than max\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Max Fee validation\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"MaxFee must be >= MinFee\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"minFee\": {{greatMaxFee}},\r\n  \"maxFee\": {{defaultMaximumFee}},\r\n  \"percentFee\": {{DefaultPercentFee}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendorErrorInvalidPercentagePointValues",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validate percentage point\", function() {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Less than percentage point\", function() {\r",
+							"    pm.expect(pm.response.text()).to.include(\"PercentFee must be >=\")\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"minFee\": {{defaultMiniumFee}},\r\n  \"maxFee\": {{defaultMaximumFee}},\r\n  \"PercentFee\": -1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendor Eligiable",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Axian tester #1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_ValidMasterVendorGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_ValidMasterVendorGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendor Accepts Master Card",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Axian tester #1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_MasterVendorAcceptsMCGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_MasterVendorAcceptsMCGuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MasterVendor Accepts NVP",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Axian tester #1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{AchManagementApi.Url}}api/{{VendorAcceleratedACH}}/mastervendor/{{ACH_MasterVendorAcceptsNVPGuid}}",
+					"host": [
+						"{{AchManagementApi.Url}}api"
+					],
+					"path": [
+						"{{VendorAcceleratedACH}}",
+						"mastervendor",
+						"{{ACH_MasterVendorAcceptsNVPGuid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{Identity.BearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
